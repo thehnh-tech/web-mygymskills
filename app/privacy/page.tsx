@@ -35,18 +35,18 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <main className="policyPage">
-      <header className="policyHeader">
+      <header className="privacyHeader">
         <a className="backLink" href="/">MyGymSkills</a>
         <p className="eyebrow">Privacy Policy</p>
         <h1>Privacy Policy</h1>
-        <p>
+        <p className="privacyLead">
           Last updated: May 13, 2026. This policy explains how MyGymSkills handles data in the mobile app and on this presentation site.
         </p>
       </header>
 
       <section className="policyContent" aria-label="Privacy policy details">
         {sections.map((section) => (
-          <article key={section.title}>
+          <article className="privacyCard" key={section.title}>
             <h2>{section.title}</h2>
             <p>{section.body}</p>
           </article>

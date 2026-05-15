@@ -1,108 +1,200 @@
 import Image from 'next/image';
 
-const highlights = [
+const features = [
   {
-    title: 'Session planning',
-    body: 'Build a workout with planned sets, reps, weight, and rest targets before you train.',
+    code: '01',
+    title: 'Plan the session',
+    body: 'Create the workout, choose exercises, and set targets before training starts.',
   },
   {
-    title: 'Fast set logging',
-    body: 'Adjust each set during the workout and mark completed work with one tap.',
+    code: '02',
+    title: 'Log each set',
+    body: 'Update reps and weight with compact controls, then mark completed sets in place.',
   },
   {
-    title: 'Progress review',
-    body: 'Track completion, weekly consistency, volume, duration, and personal records.',
+    code: '03',
+    title: 'Review progress',
+    body: 'See completion, volume, weekly trend, and personal records from local workout data.',
   },
 ];
 
-const stats = [
-  ['90+', 'exercise entries'],
-  ['100%', 'offline-first'],
-  ['iOS', 'ready with EAS'],
+const workouts = [
+  ['Push Strength', '6 exercises', '74%'],
+  ['Leg Day', '5 exercises', 'Planned'],
+  ['Upper Volume', '7 exercises', 'Done'],
+];
+
+const settings = [
+  ['Appearance', 'System'],
+  ['Units', 'kg'],
+  ['Default rest', '90s'],
+  ['Backup', 'JSON'],
 ];
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="siteShell">
       <header className="topbar">
         <a className="brand" href="#top" aria-label="MyGymSkills home">
-          <Image src="/app-icon.png" alt="" width={32} height={32} priority />
+          <Image src="/app-icon.png" alt="" width={34} height={34} priority />
           <span>MyGymSkills</span>
         </a>
-        <nav aria-label="Main navigation">
-          <a href="#features">Features</a>
-          <a href="#flow">Flow</a>
-          <a href="#download">Build</a>
+        <nav className="navLinks" aria-label="Main navigation">
+          <a href="#today">Today</a>
+          <a href="#features">Flow</a>
+          <a href="#settings">Settings</a>
           <a href="/privacy">Privacy</a>
         </nav>
       </header>
 
-      <section id="top" className="hero" aria-label="MyGymSkills presentation">
-        <div className="heroContent">
+      <section id="top" className="hero pageBand" aria-label="MyGymSkills app preview">
+        <div className="heroHeader">
           <p className="eyebrow">Local-first gym tracker</p>
           <h1>MyGymSkills</h1>
-          <p className="heroText">
-            Plan workouts, log every set, and review progress with a simple mobile app built for repeat training.
+          <p className="heroLead">
+            A simple mobile workout log for planning sessions, recording sets, and reviewing progress without accounts or cloud sync.
           </p>
           <div className="heroActions">
-            <a className="primaryAction" href="#download">Prepare iOS build</a>
-            <a className="secondaryAction" href="#features">Explore features</a>
+            <a className="button primary" href="#today">View app flow</a>
+            <a className="button secondary" href="/privacy">Privacy policy</a>
           </div>
+        </div>
+
+        <div id="today" className="appSurface">
+          <section className="phoneFrame" aria-label="Today screen preview">
+            <div className="phoneStatus">
+              <span>9:41</span>
+              <span>MyGymSkills</span>
+            </div>
+            <div className="screenBody">
+              <p className="screenDate">Friday, May 15</p>
+              <h2 className="screenTitle">Today</h2>
+
+              <article className="completionCard">
+                <span className="miniLabel">Today&apos;s goal completion</span>
+                <div className="progressRing" aria-label="74 percent complete">
+                  <span>
+                    <strong>74%</strong>
+                    <span>of planned</span>
+                  </span>
+                </div>
+                <p className="screenDate">Keep the plan tight and finish strong.</p>
+              </article>
+
+              <div className="cardGrid">
+                <article className="statCard">
+                  <span className="miniLabel">Planned Vol</span>
+                  <strong>8.4k</strong>
+                  <span>kg</span>
+                </article>
+                <article className="statCard">
+                  <span className="miniLabel">Actual Vol</span>
+                  <strong>6.2k</strong>
+                  <span>kg</span>
+                </article>
+                <article className="statCard">
+                  <span className="miniLabel">Exercises</span>
+                  <strong>4/6</strong>
+                  <span>completed</span>
+                </article>
+                <article className="statCard">
+                  <span className="miniLabel">Duration</span>
+                  <strong>52m</strong>
+                  <span>logged today</span>
+                </article>
+              </div>
+            </div>
+            <div className="phoneTabs" aria-label="Mobile tab bar preview">
+              <span>Today</span>
+              <span>Log</span>
+              <span>Library</span>
+              <span>Stats</span>
+              <span>More</span>
+            </div>
+          </section>
+
+          <section className="dashboardPanel" aria-label="Workout and progress preview">
+            <div className="segment" aria-label="Workout filters">
+              <span>All</span>
+              <span>Planned</span>
+              <span>Done</span>
+            </div>
+
+            <div className="workoutList">
+              {workouts.map(([title, meta, status]) => (
+                <article className="workoutItem" key={title}>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{meta}</p>
+                  </div>
+                  <span className="pill">{status}</span>
+                </article>
+              ))}
+            </div>
+
+            <article className="chartPanel">
+              <span className="miniLabel">Last 7 days completion</span>
+              <div className="barChart" aria-label="Weekly completion bar chart">
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+              </div>
+            </article>
+          </section>
         </div>
       </section>
 
-      <section className="statBand" aria-label="Product facts">
-        {stats.map(([value, label]) => (
-          <div key={label}>
-            <strong>{value}</strong>
-            <span>{label}</span>
-          </div>
-        ))}
-      </section>
-
-      <section id="features" className="section">
-        <div className="sectionIntro">
-          <p className="eyebrow">What it does</p>
-          <h2>Everything needed for a clean workout log.</h2>
+      <section id="features" className="pageBand">
+        <div className="sectionHeader">
+          <p className="sectionKicker">Training flow</p>
+          <h2>Built around the same screens as the mobile app.</h2>
+          <p className="sectionLead">
+            The site now uses the same neutral palette, compact cards, segmented controls, and progress surfaces as the Expo app.
+          </p>
         </div>
         <div className="featureGrid">
-          {highlights.map((item) => (
-            <article className="featureCard" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
+          {features.map((feature) => (
+            <article className="featureCard" key={feature.title}>
+              <div className="featureIcon">{feature.code}</div>
+              <h3>{feature.title}</h3>
+              <p>{feature.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="flow" className="splitSection">
-        <div>
-          <p className="eyebrow">Training flow</p>
-          <h2>From plan to completed session.</h2>
-          <p>
-            MyGymSkills keeps the daily workflow direct: create the session, log the work, then review what changed.
-          </p>
+      <section id="settings" className="settingsBand pageBand">
+        <div className="settingsGrid">
+          <div className="sectionHeader">
+            <p className="sectionKicker">Offline by default</p>
+            <h2>Settings stay simple and readable.</h2>
+            <p className="sectionLead">
+              App preferences, units, rest timers, and backups follow a quiet settings-list pattern instead of a marketing layout.
+            </p>
+          </div>
+          <div className="settingsList" aria-label="Settings preview">
+            {settings.map(([label, value]) => (
+              <div className="settingRow" key={label}>
+                <strong>{label}</strong>
+                <span>{value}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <ol className="flowList">
-          <li><span>01</span>Pick exercises and targets.</li>
-          <li><span>02</span>Record reps and weight set by set.</li>
-          <li><span>03</span>Save the workout and review progress.</li>
-        </ol>
       </section>
 
-      <section id="download" className="ctaSection">
-        <p className="eyebrow">Separate presentation site</p>
-        <h2>Ready for a public landing page.</h2>
-        <p>
-          This Next.js site is separate from the Expo app, so it can be deployed independently while the mobile app goes through EAS.
-        </p>
-        <div className="commandBlock">
-          <code>npm run build</code>
-          <span>inside the site folder</span>
+      <section className="ctaBand pageBand">
+        <div className="ctaPanel">
+          <div>
+            <h2>Ready for public deployment.</h2>
+            <p>The web app remains separate from the Expo mobile app and deploys independently on Vercel.</p>
+          </div>
+          <a className="button" href="/privacy">Privacy</a>
         </div>
-        <p className="footerLink">
-          <a href="/privacy">Privacy Policy</a>
-        </p>
       </section>
     </main>
   );
